@@ -8,3 +8,8 @@ export interface Book {
   status: ReadingStatus;
   notes?: string;
 }
+
+export interface FilterState {
+	query: string
+	status: ReadingStatus | 'all'
+}

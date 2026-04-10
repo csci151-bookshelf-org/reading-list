@@ -1,8 +1,20 @@
+import { useMemo, useState } from 'react'
+import FilterBar from '../components/FilterBar'
 import BookList from '../features/books/BookList'
 import { useBooks } from '../features/books/useBooks'
+import { filterBooks } from '../features/books/bookUtils'
+import { defaultFilterState } from '../features/filter/filterUtils'
+import type { Book, FilterState } from '../types'
 
 export default function Home() {
   const { books, handleStatusChange } = useBooks()
+
+  const [filters, setFilters] = useState<FilterState>(defaultFilterState)
+
+  const visibleBooks = useMemo(
+    () => filterBooks(books, filters.query, filters.status),
+    [filters],
+  )
 
   return (
     <main className="page-shell">
@@ -12,7 +24,8 @@ export default function Home() {
         <p>A clean front-end view of the books in the collection.</p>
       </header>
 
-      <BookList books={books} onStatusChange={handleStatusChange} />
+      <FilterBar value={filters} onChange={setFilters} />
+      <BookList books={visibleBooks} />
     </main>
   )
 }
