@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import type { Book, ReadingStatus } from './BookTypes'
 
 interface AddBookProps {
+  // eslint-disable-next-line no-unused-vars
   onAddBook: (book: Book) => void
   onCancel: () => void
 }
@@ -34,10 +35,10 @@ export default function AddBook({ onAddBook, onCancel }: AddBookProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div>
-        <label htmlFor="title" className="block text-sm font-medium text-white mb-2">
-          Title <span className="text-red-500">*</span>
+    <form onSubmit={handleSubmit} className="add-book-form">
+      <div className="form-group">
+        <label htmlFor="title" className="form-label">
+          Title <span className="required-mark">*</span>
         </label>
         <input
           id="title"
@@ -49,9 +50,9 @@ export default function AddBook({ onAddBook, onCancel }: AddBookProps) {
         />
       </div>
 
-      <div>
-        <label htmlFor="author" className="block text-sm font-medium text-white mb-2">
-          Author <span className="text-red-500">*</span>
+      <div className="form-group">
+        <label htmlFor="author" className="form-label">
+          Author <span className="required-mark">*</span>
         </label>
         <input
           id="author"
@@ -63,8 +64,8 @@ export default function AddBook({ onAddBook, onCancel }: AddBookProps) {
         />
       </div>
 
-      <div>
-        <label htmlFor="genre" className="block text-sm font-medium text-white mb-2">
+      <div className="form-group">
+        <label htmlFor="genre" className="form-label">
           Genre
         </label>
         <input
@@ -77,8 +78,8 @@ export default function AddBook({ onAddBook, onCancel }: AddBookProps) {
         />
       </div>
 
-      <div>
-        <label htmlFor="status" className="block text-sm font-medium text-white mb-2">
+      <div className="form-group">
+        <label htmlFor="status" className="form-label">
           Reading Status
         </label>
         <select
@@ -93,7 +94,7 @@ export default function AddBook({ onAddBook, onCancel }: AddBookProps) {
         </select>
       </div>
 
-      <div className="form-actions pt-6 border-t border-white/8 justify-end">
+      <div className="form-actions">
         <button
           type="button"
           onClick={onCancel}

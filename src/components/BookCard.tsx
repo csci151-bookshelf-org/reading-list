@@ -4,6 +4,12 @@ import type { ChangeEvent } from 'react'
 import { formatReadingStatus } from '../features/books/bookUtils'
 import BookNotesSection from '../features/notes/BookNotesSection'
 
+const statusClassByValue: Record<ReadingStatus, string> = {
+  'to-read': 'status-pill-to-read',
+  reading: 'status-pill-reading',
+  finished: 'status-pill-finished',
+}
+
 const statusOptions: Array<{ value: ReadingStatus; label: string }> = [
   { value: 'to-read', label: 'Want to Read' },
   { value: 'reading', label: 'Reading' },
@@ -12,7 +18,9 @@ const statusOptions: Array<{ value: ReadingStatus; label: string }> = [
 
 interface BookCardProps {
   book: Book
+  // eslint-disable-next-line no-unused-vars
   onStatusChange: (bookId: string, status: ReadingStatus) => void
+	// eslint-disable-next-line no-unused-vars
 	onAddNote: (bookId: string, noteText: string) => void
 }
 
@@ -29,20 +37,22 @@ export default function BookCard({ book, onStatusChange, onAddNote }: BookCardPr
           <p className="eyebrow">{book.genre}</p>
           <h3>{book.title}</h3>
         </div>
-        <span className="status-pill">{formatReadingStatus(book.status)}</span>
+        <span className={`status-pill ${statusClassByValue[book.status]}`}>
+          {formatReadingStatus(book.status)}
+        </span>
       </div>
 
       <p className="book-meta">by {book.author}</p>
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-200" htmlFor={`status-${book.id}`}>
+      <div className="status-editor">
+        <label className="status-label" htmlFor={`status-${book.id}`}>
           Reading status
         </label>
         <select
           id={`status-${book.id}`}
           value={book.status}
           onChange={handleChange}
-          className="text-input"
+          className="text-input status-select"
         >
           {statusOptions.map((option) => (
             <option key={option.value} value={option.value}>
