@@ -22,10 +22,20 @@ interface BookCardProps {
   onStatusChange: (bookId: string, status: ReadingStatus) => void
 	// eslint-disable-next-line no-unused-vars
 	onAddNote: (bookId: string, noteText: string) => void
+	// eslint-disable-next-line no-unused-vars
+	onEditBook: (book: Book) => void
+	// eslint-disable-next-line no-unused-vars
+	onDeleteBook: (book: Book) => void
 }
 
 
-export default function BookCard({ book, onStatusChange, onAddNote }: BookCardProps) {
+export default function BookCard({
+  book,
+  onStatusChange,
+  onAddNote,
+  onEditBook,
+  onDeleteBook,
+}: BookCardProps) {
   function handleChange(event: ChangeEvent<HTMLSelectElement>) {
     onStatusChange(book.id, event.target.value as ReadingStatus)
   }
@@ -60,6 +70,15 @@ export default function BookCard({ book, onStatusChange, onAddNote }: BookCardPr
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="book-actions" aria-label={`Actions for ${book.title}`}>
+        <button type="button" className="ghost-button" onClick={() => onEditBook(book)}>
+          Edit
+        </button>
+        <button type="button" className="danger-button" onClick={() => onDeleteBook(book)}>
+          Delete
+        </button>
       </div>
 
       <BookNotesSection
