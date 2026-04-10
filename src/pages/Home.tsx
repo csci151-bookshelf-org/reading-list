@@ -3,9 +3,9 @@ import FilterBar from '../components/FilterBar'
 import BookList from '../features/books/BookList'
 import { filterBooks } from '../features/books/bookUtils'
 import { defaultFilterState } from '../features/filter/filterUtils'
-import type { Book, FilterState } from '../types'
+import type { Book, FilterState, Note } from '../types'
 
-const books: Book[] = [
+const initialBooks: Book[] = [
   { id: '1', title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', status: 'finished' },
   { id: '2', title: 'Clean Code', author: 'Robert C. Martin', genre: 'Programming', status: 'reading' },
   { id: '3', title: 'Dune', author: 'Frank Herbert', genre: 'Science Fiction', status: 'to-read' },
@@ -13,12 +13,38 @@ const books: Book[] = [
 ]
 
 export default function Home() {
+  const [books, setBooks] = useState<Book[]>(initialBooks)
   const [filters, setFilters] = useState<FilterState>(defaultFilterState)
 
   const visibleBooks = useMemo(
     () => filterBooks(books, filters.query, filters.status),
-    [filters],
+    [books, filters],
   )
+
+  function handleAddNote(bookId: string, noteText: string) {
+    const trimmedText = noteText.trim()
+
+    if (!trimmedText) {
+      return
+    }
+
+    const newNote: Note = {
+      id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      text: trimmedText,
+      createdAt: new Date().toISOString(),
+    }
+
+    setBooks((currentBooks) =>
+      currentBooks.map((book) =>
+        book.id === bookId
+          ? {
+              ...book,
+              notes: [...(book.notes ?? []), newNote],
+            }
+          : book,
+      ),
+    )
+  }
 
   return (
     <main className="page-shell">
@@ -29,7 +55,7 @@ export default function Home() {
       </header>
 
       <FilterBar value={filters} onChange={setFilters} />
-      <BookList books={visibleBooks} />
+      <BookList books={visibleBooks} onAddNote={handleAddNote} />
     </main>
   )
 }

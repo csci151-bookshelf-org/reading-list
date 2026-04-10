@@ -4,9 +4,10 @@ import { sortBooksByTitle } from './bookUtils'
 
 interface BookListProps {
 	books: Book[]
+	onAddNote: (bookId: string, noteText: string) => void
 }
 
-export default function BookList({ books }: BookListProps) {
+export default function BookList({ books, onAddNote }: BookListProps) {
 	const sortedBooks = sortBooksByTitle(books)
 
 	if (sortedBooks.length === 0) {
@@ -22,7 +23,7 @@ export default function BookList({ books }: BookListProps) {
 	return (
 		<section className="book-list" aria-label="Book list">
 			{sortedBooks.map((book) => (
-				<BookCard key={book.id} book={book} />
+				<BookCard key={book.id} book={book} onAddNote={onAddNote} />
 			))}
 		</section>
 	)
