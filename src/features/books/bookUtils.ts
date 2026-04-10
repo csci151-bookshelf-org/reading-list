@@ -22,3 +22,13 @@ export const filterBooks = (
 
 export const countByStatus = (books: Book[], status: ReadingStatus): number =>
 	books.reduce((total, book) => (book.status === status ? total + 1 : total), 0)
+
+export function sortBooksByTitle(books: Book[]) {
+	return [...books].sort((left, right) => left.title.localeCompare(right.title))
+}
+
+export function formatReadingStatus(status: ReadingStatus) {
+	return status
+		.replace('-', ' ')
+		.replace(/\b\w/g, (character) => character.toUpperCase())
+}
