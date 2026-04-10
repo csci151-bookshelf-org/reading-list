@@ -37,7 +37,7 @@ A book tracking application that helps readers manage their reading list, track 
 ## Features Implemented
 
 - [ ] Add Book - Add books with title, author, genre, status
-- [ ] Book List - Display all books in clean layout
+- [x] Book List - Display all books in clean layout
 - [ ] Filter by Status - Filter by Want to Read, Reading, Finished
 - [ ] Reading Notes - Add and view personal notes per book
 - [ ] Mark Status - Change reading status
