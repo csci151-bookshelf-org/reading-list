@@ -1,5 +1,4 @@
-import type { Book } from '../types'
-import type { ReadingStatus } from '../types'
+import type { Book, ReadingStatus } from '../types'
 import type { ChangeEvent } from 'react'
 import { formatReadingStatus } from '../features/books/bookUtils'
 import BookNotesSection from '../features/notes/BookNotesSection'
