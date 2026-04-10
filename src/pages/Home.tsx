@@ -14,6 +14,11 @@ const books: Book[] = [
 
 export default function Home() {
   const [filters, setFilters] = useState<FilterState>(defaultFilterState)
+  const isFiltering = filters.status !== 'all' || filters.query.trim().length > 0
+
+  const clearFilters = () => {
+    setFilters(defaultFilterState)
+  }
 
   const visibleBooks = useMemo(
     () => filterBooks(books, filters.query, filters.status),
@@ -28,8 +33,18 @@ export default function Home() {
         <p>A clean front-end view of the books in the collection.</p>
       </header>
 
-      <FilterBar value={filters} onChange={setFilters} />
-      <BookList books={visibleBooks} />
+      <FilterBar
+        value={filters}
+        onChange={setFilters}
+        resultCount={visibleBooks.length}
+        totalCount={books.length}
+        onClear={clearFilters}
+      />
+      <BookList
+        books={visibleBooks}
+        isFiltering={isFiltering}
+        onClearFilters={isFiltering ? clearFilters : undefined}
+      />
     </main>
   )
 }

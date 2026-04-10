@@ -5,11 +5,36 @@ import { filterOptions } from './filterUtils'
 interface FilterProps {
 	value: FilterState
 	onChange: Dispatch<SetStateAction<FilterState>>
+	resultCount: number
+	totalCount: number
+	onClear: () => void
 }
 
-export default function Filter({ value, onChange }: FilterProps) {
+export default function Filter({
+	value,
+	onChange,
+	resultCount,
+	totalCount,
+	onClear,
+}: FilterProps) {
+	const hasActiveFilters = value.status !== 'all' || value.query.trim().length > 0
+
 	return (
 		<section className="card filter-panel" aria-label="Book filters">
+			<div className="filter-meta">
+				<p className="filter-result" aria-live="polite">
+					Showing {resultCount} of {totalCount} books
+				</p>
+				<button
+					type="button"
+					className="ghost-button filter-reset"
+					onClick={onClear}
+					disabled={!hasActiveFilters}
+				>
+					Clear filters
+				</button>
+			</div>
+
 			<input
 				className="text-input"
 				type="search"
