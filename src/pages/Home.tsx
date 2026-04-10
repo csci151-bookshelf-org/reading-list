@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import FilterBar from '../components/FilterBar'
 import BookList from '../features/books/BookList'
+import AddBookModal from '../features/books/AddBookModal'
 import { filterBooks } from '../features/books/bookUtils'
 import { defaultFilterState } from '../features/filter/filterUtils'
 import type { Book, FilterState, Note } from '../types'
@@ -14,6 +15,7 @@ const initialBooks: Book[] = [
 
 export default function Home() {
   const [books, setBooks] = useState<Book[]>(initialBooks)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [filters, setFilters] = useState<FilterState>(defaultFilterState)
 
   const visibleBooks = useMemo(
@@ -46,6 +48,11 @@ export default function Home() {
     )
   }
 
+  const handleAddBook = (book: Book) => {
+    setBooks((currentBooks) => [...currentBooks, book])
+    setIsModalOpen(false)
+  }
+
   return (
     <main className="page-shell">
       <header className="card intro-card">
@@ -53,6 +60,19 @@ export default function Home() {
         <h1>Book List</h1>
         <p>A clean front-end view of the books in the collection.</p>
       </header>
+
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="primary-button mb-4"
+      >
+        + Add Book
+      </button>
+
+      <AddBookModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddBook={handleAddBook}
+      />
 
       <FilterBar value={filters} onChange={setFilters} />
       <BookList books={visibleBooks} onAddNote={handleAddNote} />
