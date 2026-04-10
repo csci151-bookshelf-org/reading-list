@@ -18,6 +18,7 @@ export default function Home() {
     handleUpdateBook,
     handleDeleteBook,
   } = useBooks()
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [bookToEdit, setBookToEdit] = useState<Book | null>(null)
   const [bookToDelete, setBookToDelete] = useState<Book | null>(null)
@@ -55,7 +56,6 @@ export default function Home() {
     if (!bookToDelete) {
       return
     }
-
     handleDeleteBook(bookToDelete.id)
     setBookToDelete(null)
   }
@@ -159,6 +159,7 @@ export default function Home() {
         resultCount={visibleBooks.length}
         totalCount={books.length}
       />
+      
       <BookList
         books={visibleBooks}
         onStatusChange={handleStatusChange}

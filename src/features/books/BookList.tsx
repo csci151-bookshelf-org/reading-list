@@ -4,13 +4,9 @@ import { sortBooksByTitle } from './bookUtils'
 
 interface BookListProps {
   books: Book[]
-  // eslint-disable-next-line no-unused-vars
   onStatusChange: (bookId: string, status: ReadingStatus) => void
-  // eslint-disable-next-line no-unused-vars
   onAddNote: (bookId: string, noteText: string) => void
-  // eslint-disable-next-line no-unused-vars
   onEditBook: (book: Book) => void
-  // eslint-disable-next-line no-unused-vars
   onDeleteBook: (book: Book) => void
 }
 
@@ -21,7 +17,7 @@ export default function BookList({
   onEditBook,
   onDeleteBook,
 }: BookListProps) {
-	const sortedBooks = sortBooksByTitle(books)
+  const sortedBooks = sortBooksByTitle(books)
 
   if (sortedBooks.length === 0) {
     return (

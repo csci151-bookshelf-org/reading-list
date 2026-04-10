@@ -23,13 +23,19 @@ export default function ConfirmDialog({
 
 	return (
 		<div className="modal-backdrop" role="presentation">
-			<div className="modal-card confirm-card" role="dialog" aria-modal="true">
+			<div
+				className="modal-card confirm-card"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="confirm-dialog-title"
+				aria-describedby="confirm-dialog-message"
+			>
 				<div className="modal-header">
-					<h2>{title}</h2>
+					<h2 id="confirm-dialog-title">{title}</h2>
 				</div>
 
 				<div className="modal-body">
-					<p className="confirm-message">{message}</p>
+					<p id="confirm-dialog-message" className="confirm-message">{message}</p>
 
 					<div className="form-actions confirm-actions">
 						<button type="button" className="ghost-button" onClick={onCancel}>
