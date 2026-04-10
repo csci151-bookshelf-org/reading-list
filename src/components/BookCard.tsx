@@ -17,16 +17,11 @@ const statusOptions: Array<{ value: ReadingStatus; label: string }> = [
 
 interface BookCardProps {
   book: Book
-  // eslint-disable-next-line no-unused-vars
   onStatusChange: (bookId: string, status: ReadingStatus) => void
-	// eslint-disable-next-line no-unused-vars
-	onAddNote: (bookId: string, noteText: string) => void
-	// eslint-disable-next-line no-unused-vars
-	onEditBook: (book: Book) => void
-	// eslint-disable-next-line no-unused-vars
-	onDeleteBook: (book: Book) => void
+  onAddNote: (bookId: string, noteText: string) => void
+  onEditBook: (book: Book) => void
+  onDeleteBook: (book: Book) => void
 }
-
 
 export default function BookCard({
   book,
