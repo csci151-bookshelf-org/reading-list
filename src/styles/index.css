@@ -247,9 +247,9 @@ h3 {
 }
 
 .status-pill-to-read {
-  background: rgba(248, 185, 84, 0.2);
-  border-color: rgba(248, 185, 84, 0.5);
-  color: #ffebb8;
+  background: rgba(255, 84, 112, 0.2);
+  border-color: rgba(255, 84, 112, 0.5);
+  color: #ffe0e7;
 }
 
 .status-pill-reading {
