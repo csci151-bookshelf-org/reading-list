@@ -269,6 +269,19 @@ h3 {
   gap: 0.42rem;
 }
 
+.book-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.book-actions .ghost-button,
+.book-actions .danger-button {
+  min-height: 2.3rem;
+  padding: 0 0.78rem;
+}
+
 .status-label,
 .form-label,
 .note-label {
@@ -553,6 +566,16 @@ select.text-input {
 
 .confirm-card {
   width: min(480px, 100%);
+}
+
+.confirm-message {
+  color: var(--ink-700);
+}
+
+.confirm-actions {
+  border-top: 0;
+  margin-top: 0.9rem;
+  padding-top: 0;
 }
 
 @keyframes rise-in {
