@@ -165,6 +165,18 @@ h3 {
   gap: 14px;
 }
 
+.filter-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-result {
+  color: #b9bfd3;
+}
+
 .filter-chips,
 .book-actions,
 .form-actions {
@@ -181,6 +193,10 @@ h3 {
 
 .book-list-empty {
   padding: 24px;
+}
+
+.book-list-empty p {
+  margin-bottom: 14px;
 }
 
 .book-card {
@@ -210,6 +226,17 @@ h3 {
   min-height: 44px;
 }
 
+.filter-reset,
+.empty-reset {
+  min-height: 38px;
+  padding: 0 12px;
+}
+
+.filter-reset:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .status-pill,
 .chip {
   display: inline-flex;
@@ -217,6 +244,24 @@ h3 {
   justify-content: center;
   padding: 0 14px;
   color: #dfe4f5;
+}
+
+.status-pill-to-read {
+  background: rgba(248, 185, 84, 0.2);
+  border-color: rgba(248, 185, 84, 0.5);
+  color: #ffebb8;
+}
+
+.status-pill-reading {
+  background: rgba(78, 168, 255, 0.22);
+  border-color: rgba(78, 168, 255, 0.5);
+  color: #d9f1ff;
+}
+
+.status-pill-finished {
+  background: rgba(87, 208, 151, 0.2);
+  border-color: rgba(87, 208, 151, 0.5);
+  color: #daf9ea;
 }
 
 .chip {
@@ -301,6 +346,14 @@ h3 {
   .summary-grid,
   .content-grid {
     grid-template-columns: 1fr;
+  }
+
+  .filter-meta {
+    align-items: stretch;
+  }
+
+  .filter-reset {
+    width: 100%;
   }
 
   .navbar {
