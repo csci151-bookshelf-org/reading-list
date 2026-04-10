@@ -12,17 +12,17 @@ export default function AddBookModal({ isOpen, onClose, onAddBook }: AddBookModa
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+    <div className="modal-backdrop">
       <div
-        className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden relative animate-in fade-in zoom-in-95 duration-200"
+        className="modal-card w-full max-w-md"
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-semibold">Add a New Book</h2>
+        <div className="flex justify-between items-center pb-4 border-b border-white/8 mb-4">
+          <h2 className="text-xl font-semibold text-white">Add a New Book</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-1"
+            className="ghost-button p-0 w-10 h-10 flex items-center justify-center"
             aria-label="Close modal"
           >
             <svg
@@ -42,7 +42,7 @@ export default function AddBookModal({ isOpen, onClose, onAddBook }: AddBookModa
           </button>
         </div>
 
-        <div className="p-4">
+        <div>
           <AddBook onAddBook={onAddBook} onCancel={onClose} />
         </div>
       </div>
