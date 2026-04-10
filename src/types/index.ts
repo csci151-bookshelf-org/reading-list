@@ -1,1 +1,1 @@
-export type { Book, FilterState, ReadingStatus } from '../features/books/BookTypes'
+export type { Book, FilterState, Note, ReadingStatus } from '../features/books/BookTypes'
