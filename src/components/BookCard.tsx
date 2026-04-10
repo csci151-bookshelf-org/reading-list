@@ -1,6 +1,6 @@
-import type { Book, ReadingStatus } from '../types'
-import type { ChangeEvent } from 'react'
-import { formatReadingStatus } from '../features/books/bookUtils'
+import type { Book, ReadingStatus } from "../types";
+import type { ChangeEvent } from "react";
+import { formatReadingStatus } from "../features/books/bookUtils";
 
 const statusClasses: Record<ReadingStatus, string> = {
   "to-read": "bg-sky-100 text-sky-800 border-sky-200",
@@ -49,7 +49,7 @@ export default function BookCard({ book, onStatusChange }: BookCardProps) {
         </label>
         <select
           id={`status-${book.id}`}
-          value={book.status}
+          value={book.status || "to-read"}
           onChange={handleChange}
           className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm transition duration-150 ease-in-out focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
         >
