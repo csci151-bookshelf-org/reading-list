@@ -3,6 +3,7 @@ import type { Book, ReadingStatus } from '../../types';
 
 interface EditBookProps {
     book: Book;
+    // eslint-disable-next-line no-unused-vars
     onSave: (updatedBook: Book) => void;
     onCancel: () => void;
 }

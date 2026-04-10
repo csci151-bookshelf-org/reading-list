@@ -5,6 +5,7 @@ import type { Book } from '../../types'
 interface AddBookModalProps {
   isOpen: boolean
   onClose: () => void
+  // eslint-disable-next-line no-unused-vars
   onAddBook: (book: Book) => void
 }
 
@@ -14,15 +15,16 @@ export default function AddBookModal({ isOpen, onClose, onAddBook }: AddBookModa
   return (
     <div className="modal-backdrop">
       <div
-        className="modal-card w-full max-w-md"
+        className="modal-card add-book-modal"
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex justify-between items-center pb-4 border-b border-white/8 mb-4">
-          <h2 className="text-xl font-semibold text-white">Add a New Book</h2>
+        <div className="modal-header">
+          <h2>Add a New Book</h2>
           <button
+            type="button"
             onClick={onClose}
-            className="ghost-button p-0 w-10 h-10 flex items-center justify-center"
+            className="ghost-button icon-button"
             aria-label="Close modal"
           >
             <svg
@@ -42,7 +44,7 @@ export default function AddBookModal({ isOpen, onClose, onAddBook }: AddBookModa
           </button>
         </div>
 
-        <div>
+        <div className="modal-body">
           <AddBook onAddBook={onAddBook} onCancel={onClose} />
         </div>
       </div>

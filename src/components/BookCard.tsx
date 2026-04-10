@@ -1,34 +1,84 @@
-import type { Book } from '../types'
+import type { Book, ReadingStatus } from '../types'
+import type { ChangeEvent } from 'react'
 import { formatReadingStatus } from '../features/books/bookUtils'
+import BookNotesSection from '../features/notes/BookNotesSection'
 
-interface BookCardProps {
-    book: Book
-    onEdit: (book: Book) => void // Add this prop
+const statusClassByValue: Record<ReadingStatus, string> = {
+  'to-read': 'status-pill-to-read',
+  reading: 'status-pill-reading',
+  finished: 'status-pill-finished',
 }
 
-export default function BookCard({ book, onEdit }: BookCardProps) {
-    return (
-        <article className="card book-card">
-            <div className="card-header">
-                <div>
-                    <p className="eyebrow">{book.genre}</p>
-                    <h3>{book.title}</h3>
-                </div>
-                <span className="status-pill">{formatReadingStatus(book.status)}</span>
-            </div>
+const statusOptions: Array<{ value: ReadingStatus; label: string }> = [
+  { value: 'to-read', label: 'Want to Read' },
+  { value: 'reading', label: 'Reading' },
+  { value: 'finished', label: 'Finished' },
+]
 
-            <p className="book-meta">by {book.author}</p>
-            
-            {/* Added the Edit Action Button */}
-            <div className="card-actions" style={{ marginTop: '1rem', textAlign: 'right' }}>
-                <button 
-                    onClick={() => onEdit(book)}
-                    className="btn-edit" 
-                    style={{ background: 'none', border: '1px solid currentColor', padding: '4px 12px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}
-                >
-                    Edit Details
-                </button>
-            </div>
-        </article>
-    )
+interface BookCardProps {
+  book: Book
+  onStatusChange: (bookId: string, status: ReadingStatus) => void
+  onAddNote: (bookId: string, noteText: string) => void
+  onEditBook: (book: Book) => void
+  onDeleteBook: (book: Book) => void
+}
+
+export default function BookCard({
+  book,
+  onStatusChange,
+  onAddNote,
+  onEditBook,
+  onDeleteBook,
+}: BookCardProps) {
+  function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+    onStatusChange(book.id, event.target.value as ReadingStatus)
+  }
+
+  return (
+    <article className="card book-card">
+      <div className="card-header">
+        <div>
+          <p className="eyebrow">{book.genre}</p>
+          <h3>{book.title}</h3>
+        </div>
+        <span className={`status-pill ${statusClassByValue[book.status]}`}>
+          {formatReadingStatus(book.status)}
+        </span>
+      </div>
+
+      <p className="book-meta">by {book.author}</p>
+
+      <div className="status-editor">
+        <label className="status-label" htmlFor={`status-${book.id}`}>
+          Reading status
+        </label>
+        <select
+          id={`status-${book.id}`}
+          value={book.status}
+          onChange={handleChange}
+          className="text-input status-select"
+        >
+          {statusOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="book-actions" aria-label={`Actions for ${book.title}`}>
+        <button type="button" className="ghost-button" onClick={() => onEditBook(book)}>
+          Edit
+        </button>
+        <button type="button" className="danger-button" onClick={() => onDeleteBook(book)}>
+          Delete
+        </button>
+      </div>
+
+      <BookNotesSection
+        notes={book.notes}
+        onAddNote={(noteText) => onAddNote(book.id, noteText)}
+      />
+    </article>
+  )
 }
