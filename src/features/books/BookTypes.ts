@@ -1,11 +1,12 @@
-export type ReadingStatus = 'to-read' | 'reading' | 'finished'
+export type ReadingStatus = "to-read" | "reading" | "finished";
 
 export interface Book {
-	id: string
-	title: string
-	author: string
-	genre: string
-	status: ReadingStatus
+  id: string;
+  title: string;
+  author: string;
+  genre: string;
+  status: ReadingStatus;
+  notes?: string;
 }
 
 export interface FilterState {
