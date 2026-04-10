@@ -147,5 +147,24 @@ export function useBooks() {
     )
   }
 
-  return { books, handleStatusChange, handleAddBook, handleAddNote }
+  function handleUpdateBook(updatedBook: Book) {
+    setBooks((currentBooks) =>
+      currentBooks.map((book) =>
+        book.id === updatedBook.id ? normalizeBook(updatedBook) : book,
+      ),
+    )
+  }
+
+  function handleDeleteBook(bookId: string) {
+    setBooks((currentBooks) => currentBooks.filter((book) => book.id !== bookId))
+  }
+
+  return {
+    books,
+    handleStatusChange,
+    handleAddBook,
+    handleAddNote,
+    handleUpdateBook,
+    handleDeleteBook,
+  }
 }
