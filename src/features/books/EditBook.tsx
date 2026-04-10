@@ -13,7 +13,7 @@ export default function EditBook({ book, onSave, onCancel }: EditBookProps) {
     const [genre, setGenre] = useState(book.genre);
     const [status, setStatus] = useState<ReadingStatus>(book.status);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSave({
             ...book, // Preserves the original ID
