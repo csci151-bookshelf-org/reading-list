@@ -1,20 +1,20 @@
-import { useMemo, useState } from 'react'
-import FilterBar from '../components/FilterBar'
-import BookList from '../features/books/BookList'
-import { useBooks } from '../features/books/useBooks'
-import { filterBooks } from '../features/books/bookUtils'
-import { defaultFilterState } from '../features/filter/filterUtils'
-import type { Book, FilterState } from '../types'
+import { useMemo, useState } from "react";
+import FilterBar from "../components/FilterBar";
+import BookList from "../features/books/BookList";
+import { useBooks } from "../features/books/useBooks";
+import { filterBooks } from "../features/books/bookUtils";
+import { defaultFilterState } from "../features/filter/filterUtils";
+import type { Book, FilterState } from "../types";
 
 export default function Home() {
-  const { books, handleStatusChange } = useBooks()
+  const { books, handleStatusChange } = useBooks();
 
-  const [filters, setFilters] = useState<FilterState>(defaultFilterState)
+  const [filters, setFilters] = useState<FilterState>(defaultFilterState);
 
   const visibleBooks = useMemo(
     () => filterBooks(books, filters.query, filters.status),
-    [filters],
-  )
+    [books, filters],
+  );
 
   return (
     <main className="page-shell">
@@ -25,7 +25,7 @@ export default function Home() {
       </header>
 
       <FilterBar value={filters} onChange={setFilters} />
-      <BookList books={visibleBooks} />
+      <BookList books={visibleBooks} onStatusChange={handleStatusChange} />
     </main>
-  )
+  );
 }
