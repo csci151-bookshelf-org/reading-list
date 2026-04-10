@@ -1,14 +1,9 @@
 import BookList from '../features/books/BookList'
-import type { Book } from '../types'
-
-const books: Book[] = [
-  { id: '1', title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', status: 'finished' },
-  { id: '2', title: 'Clean Code', author: 'Robert C. Martin', genre: 'Programming', status: 'reading' },
-  { id: '3', title: 'Dune', author: 'Frank Herbert', genre: 'Science Fiction', status: 'to-read' },
-  { id: '4', title: 'The Pragmatic Programmer', author: 'Andrew Hunt', genre: 'Programming', status: 'finished' },
-]
+import { useBooks } from '../features/books/useBooks'
 
 export default function Home() {
+  const { books, handleStatusChange } = useBooks()
+
   return (
     <main className="page-shell">
       <header className="card intro-card">
@@ -17,7 +12,7 @@ export default function Home() {
         <p>A clean front-end view of the books in the collection.</p>
       </header>
 
-      <BookList books={books} />
+      <BookList books={books} onStatusChange={handleStatusChange} />
     </main>
   )
 }
