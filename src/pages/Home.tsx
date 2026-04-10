@@ -1,5 +1,9 @@
+import { useMemo, useState } from 'react'
+import FilterBar from '../components/FilterBar'
 import BookList from '../features/books/BookList'
-import type { Book } from '../types'
+import { filterBooks } from '../features/books/bookUtils'
+import { defaultFilterState } from '../features/filter/filterUtils'
+import type { Book, FilterState } from '../types'
 
 const books: Book[] = [
   { id: '1', title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', status: 'finished' },
@@ -9,6 +13,13 @@ const books: Book[] = [
 ]
 
 export default function Home() {
+  const [filters, setFilters] = useState<FilterState>(defaultFilterState)
+
+  const visibleBooks = useMemo(
+    () => filterBooks(books, filters.query, filters.status),
+    [filters],
+  )
+
   return (
     <main className="page-shell">
       <header className="card intro-card">
@@ -17,7 +28,8 @@ export default function Home() {
         <p>A clean front-end view of the books in the collection.</p>
       </header>
 
-      <BookList books={books} />
+      <FilterBar value={filters} onChange={setFilters} />
+      <BookList books={visibleBooks} />
     </main>
   )
 }
