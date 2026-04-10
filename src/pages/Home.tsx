@@ -2,19 +2,13 @@ import { useMemo, useState } from 'react'
 import FilterBar from '../components/FilterBar'
 import BookList from '../features/books/BookList'
 import AddBookModal from '../features/books/AddBookModal'
+import { useBooks } from '../features/books/useBooks'
 import { filterBooks } from '../features/books/bookUtils'
 import { defaultFilterState } from '../features/filter/filterUtils'
-import type { Book, FilterState, Note } from '../types'
-
-const initialBooks: Book[] = [
-  { id: '1', title: 'Atomic Habits', author: 'James Clear', genre: 'Self-Help', status: 'finished' },
-  { id: '2', title: 'Clean Code', author: 'Robert C. Martin', genre: 'Programming', status: 'reading' },
-  { id: '3', title: 'Dune', author: 'Frank Herbert', genre: 'Science Fiction', status: 'to-read' },
-  { id: '4', title: 'The Pragmatic Programmer', author: 'Andrew Hunt', genre: 'Programming', status: 'finished' },
-]
+import type { Book, FilterState } from '../types'
 
 export default function Home() {
-  const [books, setBooks] = useState<Book[]>(initialBooks)
+  const { books, handleStatusChange, handleAddBook, handleAddNote } = useBooks()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [filters, setFilters] = useState<FilterState>(defaultFilterState)
 
@@ -23,33 +17,8 @@ export default function Home() {
     [books, filters],
   )
 
-  function handleAddNote(bookId: string, noteText: string) {
-    const trimmedText = noteText.trim()
-
-    if (!trimmedText) {
-      return
-    }
-
-    const newNote: Note = {
-      id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-      text: trimmedText,
-      createdAt: new Date().toISOString(),
-    }
-
-    setBooks((currentBooks) =>
-      currentBooks.map((book) =>
-        book.id === bookId
-          ? {
-              ...book,
-              notes: [...(book.notes ?? []), newNote],
-            }
-          : book,
-      ),
-    )
-  }
-
-  const handleAddBook = (book: Book) => {
-    setBooks((currentBooks) => [...currentBooks, book])
+  function handleAddBookAndClose(book: Book) {
+    handleAddBook(book)
     setIsModalOpen(false)
   }
 
@@ -61,21 +30,22 @@ export default function Home() {
         <p>A clean front-end view of the books in the collection.</p>
       </header>
 
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="primary-button mb-4"
-      >
+      <button onClick={() => setIsModalOpen(true)} className="primary-button mb-4">
         + Add Book
       </button>
 
       <AddBookModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onAddBook={handleAddBook}
+        onAddBook={handleAddBookAndClose}
       />
 
       <FilterBar value={filters} onChange={setFilters} />
-      <BookList books={visibleBooks} onAddNote={handleAddNote} />
+      <BookList
+        books={visibleBooks}
+        onStatusChange={handleStatusChange}
+        onAddNote={handleAddNote}
+      />
     </main>
   )
 }
