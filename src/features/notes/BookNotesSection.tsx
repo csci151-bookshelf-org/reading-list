@@ -4,6 +4,7 @@ import NoteItem from './NoteItem'
 
 interface BookNotesSectionProps {
 	notes?: Note[]
+	// eslint-disable-next-line no-unused-vars
 	onAddNote: (noteText: string) => void
 }
 
@@ -11,14 +12,14 @@ export default function BookNotesSection({ notes, onAddNote }: BookNotesSectionP
 	const safeNotes = notes ?? []
 
 	return (
-		<section className="space-y-4">
-			<h3 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+		<section className="notes-section">
+			<h3 className="notes-title">
 				Reading Notes
 			</h3>
 
 			<AddNoteForm onAddNote={onAddNote} />
 
-			<div className="space-y-3">
+			<div className="notes-list">
 				{safeNotes.map((note) => (
 					<NoteItem key={note.id} note={note} />
 				))}

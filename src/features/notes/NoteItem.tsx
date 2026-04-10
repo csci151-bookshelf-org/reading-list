@@ -16,9 +16,9 @@ function formatCreatedAt(createdAt: string | Date) {
 
 export default function NoteItem({ note }: NoteItemProps) {
 	return (
-		<article className="rounded-lg bg-slate-100 px-4 py-3 text-slate-800">
-			<p className="text-sm leading-6">{note.text}</p>
-			<p className="mt-2 text-xs text-slate-500">{formatCreatedAt(note.createdAt)}</p>
+		<article className="note-item">
+			<p className="note-text">{note.text}</p>
+			<p className="note-date">{formatCreatedAt(note.createdAt)}</p>
 		</article>
 	)
 }
