@@ -7,3 +7,8 @@ export interface Book {
 	genre: string
 	status: ReadingStatus
 }
+
+export interface FilterState {
+	query: string
+	status: ReadingStatus | 'all'
+}
