@@ -16,6 +16,7 @@ const statusOptions: Array<{ value: ReadingStatus; label: string }> = [
 
 interface BookCardProps {
   book: Book;
+  // eslint-disable-next-line no-unused-vars
   onStatusChange: (bookId: string, status: ReadingStatus) => void;
 }
 

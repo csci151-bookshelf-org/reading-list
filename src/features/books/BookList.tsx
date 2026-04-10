@@ -4,6 +4,7 @@ import { sortBooksByTitle } from "./bookUtils";
 
 interface BookListProps {
   books: Book[];
+  // eslint-disable-next-line no-unused-vars
   onStatusChange: (bookId: string, status: ReadingStatus) => void;
 }
 
